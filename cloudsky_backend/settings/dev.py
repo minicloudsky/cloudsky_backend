@@ -35,7 +35,7 @@ SECRET_KEY = 'GFGSjdsghdsg%ftrD%DRDc^Dc^v5**7f45dc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','*' ]
 
 # Application definition
 
@@ -53,9 +53,11 @@ INSTALLED_APPS = [
     # install app 'log'
     'log.apps.LogConfig',
     'business.apps.BusinessConfig',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,7 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cloudsky_backend.common.middleware.save_logs.SaveLogMiddleware'
+    'cloudsky_backend.common.middleware.save_logs.SaveLogMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 
 ]
 
@@ -268,3 +271,4 @@ SWAGGER_SETTINGS = {
     "is_superuser": False,  # Set to True to enforce admin only access
 
 }
+PROMETHEUS_LATENCY_BUCKETS = (.1, .2, .5, .6, .8, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
