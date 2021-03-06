@@ -13,7 +13,6 @@ def exec_sql(sql, params=None, db='default'):
     :param db: Django数据库名
     """
     cursor = connections[db].cursor()
-    logging.warning("sql : {} params : {} db : {}".format(sql, params, db))
     with transaction.atomic(using='default'):
         cursor.execute(sql, params)
         cursor.close()

@@ -1,14 +1,8 @@
-from django.core.cache import cache
-import time
-import math
 import functools
-import pickle
 import hashlib
-import inspect
-from django.conf import settings
-from django.db.models import Q
+import pickle
 
-from menu.models import Menu
+from django.core.cache import cache
 
 
 def _compute_key(function, args, kw):
@@ -42,6 +36,3 @@ def function_caches(times=600):
         return __memoize
 
     return _memoize
-
-
-

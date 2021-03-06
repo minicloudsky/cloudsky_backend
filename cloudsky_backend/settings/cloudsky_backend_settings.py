@@ -1,5 +1,4 @@
 # coding=utf-8
-import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -32,7 +31,6 @@ DATABASES = {
     # }
 }
 
-DEFALUT_USER_ROLE = []
 
 # CACHES = {
 #     "default": {
