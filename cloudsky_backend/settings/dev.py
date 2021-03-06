@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import datetime
 import os
 import sys
+import django_opentracing
 
 # load the cloudsky_backend_settings configs
 
@@ -35,7 +36,7 @@ SECRET_KEY = 'GFGSjdsghdsg%ftrD%DRDc^Dc^v5**7f45dc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','*' ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 # Application definition
 
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cloudsky_backend.common.middleware.save_logs.SaveLogMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'django_opentracing.OpenTracingMiddleware',
 
 ]
 
@@ -101,7 +103,8 @@ DATABASE_APPS_MAPPING = {
     # 'app_name':'database_name',
 }
 
-DATABASE_ROUTERS = ['cloudsky_backend.common.database_router.DatabaseAppsRouter']
+DATABASE_ROUTERS = [
+    'cloudsky_backend.common.database_router.DatabaseAppsRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -164,7 +167,6 @@ REST_FRAMEWORK = {
 # JWT_AUTH = {
 #     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 # }
-import datetime
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
@@ -271,4 +273,36 @@ SWAGGER_SETTINGS = {
     "is_superuser": False,  # Set to True to enforce admin only access
 
 }
-PROMETHEUS_LATENCY_BUCKETS = (.1, .2, .5, .6, .8, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
+PROMETHEUS_LATENCY_BUCKETS = (.1, .2, .5, .6, .8, 1.0, 2.0, 3.0,
+                              4.0, 5.0, 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
+
+# OpenTracing settings
+
+# if not included, defaults to True.
+# has to come before OPENTRACING_TRACING setting because python...
+OPENTRACING_TRACE_ALL = True
+
+# defaults to []
+# only valid if OPENTRACING_TRACE_ALL == True
+OPENTRACING_TRACED_ATTRIBUTES = []
+
+# Callable that returns an `opentracing.Tracer` implementation.
+OPENTRACING_TRACER_CALLABLE = 'opentracing.Tracer'
+
+# Parameters for the callable (Depending on the tracer implementation chosen)
+OPENTRACING_TRACER_PARAMETERS = {
+    # 'example-parameter-host': 'collector',
+}
+
+
+# OpenTracing settings
+
+# default tracer is opentracing.Tracer(), which does nothing
+OPENTRACING_TRACING = django_opentracing.DjangoTracing()
+
+# default is False
+OPENTRACING_TRACE_ALL = False
+
+# default is []
+OPENTRACING_TRACED_ATTRIBUTES = ['META']
+

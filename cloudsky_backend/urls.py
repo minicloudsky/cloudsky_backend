@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
-
+from . import views
 
 def trigger_error(request):
     division_by_zero = 0.7
@@ -32,4 +32,6 @@ urlpatterns = [
     url(r'business/', include('business.urls')),
     path('sentry-debug/', trigger_error),
     url('', include('django_prometheus.urls')),
+    url(r'^server/', include('server.urls')),
+    url(r'^client/', include('client.urls')),
 ]
