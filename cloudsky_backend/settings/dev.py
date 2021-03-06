@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import datetime
 import os
 import sys
+import django_opentracing
 from pathlib import Path
 
 # load the cloudsky_backend_settings configs
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cloudsky_backend.common.middleware.save_logs.SaveLogMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'django_opentracing.OpenTracingMiddleware',
 
 ]
 
@@ -96,7 +99,8 @@ DATABASE_APPS_MAPPING = {
     # 'app_name':'database_name',
 }
 
-DATABASE_ROUTERS = ['cloudsky_backend.common.database_router.DatabaseAppsRouter']
+DATABASE_ROUTERS = [
+    'cloudsky_backend.common.database_router.DatabaseAppsRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -159,7 +163,6 @@ REST_FRAMEWORK = {
 # JWT_AUTH = {
 #     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 # }
-import datetime
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
@@ -265,6 +268,37 @@ SWAGGER_SETTINGS = {
     "is_authenticated": False,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
 }
+
+
+
+# OpenTracing settings
+
+# if not included, defaults to True.
+# has to come before OPENTRACING_TRACING setting because python...
+OPENTRACING_TRACE_ALL = True
+
+# defaults to []
+# only valid if OPENTRACING_TRACE_ALL == True
+OPENTRACING_TRACED_ATTRIBUTES = []
+
+# Callable that returns an `opentracing.Tracer` implementation.
+OPENTRACING_TRACER_CALLABLE = 'opentracing.Tracer'
+
+# Parameters for the callable (Depending on the tracer implementation chosen)
+OPENTRACING_TRACER_PARAMETERS = {
+    # 'example-parameter-host': 'collector',
+}
+
+# OpenTracing settings
+
+# default tracer is opentracing.Tracer(), which does nothing
+OPENTRACING_TRACING = django_opentracing.DjangoTracing()
+
+# default is False
+OPENTRACING_TRACE_ALL = False
+
+# default is []
+OPENTRACING_TRACED_ATTRIBUTES = ['META']
 
 _LOCAL_SETTINGS_PATH = os.path.join(
     os.path.dirname(__file__), 'cloudsky_backend_settings.py')

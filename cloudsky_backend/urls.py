@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from . import views
 from django.urls import path, include
 
 
@@ -28,4 +29,6 @@ urlpatterns = [
     path('business/', include('business.urls')),
     path('sentry-debug/', trigger_error),
     path('', include('django_prometheus.urls')),
+    path('server/', include('server.urls')),
+    path('client/', include('client.urls')),
 ]
