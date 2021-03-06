@@ -216,18 +216,18 @@ class GetUserInfo(APIView):
 
     def get(self, request):
         user = request.user
-        id = user.id
-        name = user.username
-        email = user.email
+        # id = user.id if user else ''
+        # name = user.username if user else ''
+        # email = user.email if user else ''
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-        phone = user.phone
+        # phone = user.phone
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
         return Response({
             "id": id,
-            "username": name,
-            "email": email,
-            "phone": phone,
-            "token": token}
-        )
+            # "username": name,
+            # "email": email,
+            # "phone": phone,
+            "token": token
+        })

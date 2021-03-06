@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 
-PROJECT_PATH=/home/tools/opendata_project/metadata_project
-PYTHON_PATH=/home/tools/opendata_project/pyenv/python36_metadata_project/bin
+PROJECT_PATH=/home/project/cloudsky_backend
+PYTHON_PATH=python
 
 
-#$PYTHON_PATH/python $PROJECT_PATH/back_end/manage.py  makemigrations
-#$PYTHON_PATH/python $PROJECT_PATH/back_end/manage.py  migrate
-#$PYTHON_PATH/python $PROJECT_PATH/back_end/manage.py  collectstatic
+python $PROJECT_PATH/manage.py  makemigrations
+python $PROJECT_PATH/manage.py  migrate
+python $PROJECT_PATH/manage.py  collectstatic
