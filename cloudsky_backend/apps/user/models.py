@@ -23,7 +23,7 @@ class UserProfile(AbstractUser):
     adress = models.CharField('地址', max_length=100, default='')
     phone = models.CharField('手机号', max_length=11, null=True, blank=True)
     is_active = models.BooleanField('用户状态', default=True)
-    image = models.ImageField(upload_to='image/%Y%m', default='image/default.png', max_length=100, null=True)
+    image = models.CharField('头像', max_length=300, null=True)
     create_time = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
     update_time = models.DateTimeField(verbose_name="更新时间", auto_now=True)
     create_by = models.CharField(verbose_name="创建人", max_length=30)

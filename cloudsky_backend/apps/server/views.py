@@ -6,19 +6,23 @@ import opentracing
 
 tracing = settings.OPENTRACING_TRACING
 
+
 # Create your views here.
 
 def server_index(request):
     return HttpResponse("Hello, world. You're at the server index.")
 
+
 @tracing.trace('method')
 def server_simple(request):
     return HttpResponse("This is a simple traced request.")
+
 
 @tracing.trace()
 def server_log(request):
     tracing.tracer.active_span.log_event("Hello, world!")
     return HttpResponse("Something was logged")
+
 
 @tracing.trace()
 def server_child_span(request):

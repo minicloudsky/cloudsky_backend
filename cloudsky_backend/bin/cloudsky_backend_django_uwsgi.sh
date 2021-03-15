@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-PROJECT_PATH=/home/project/cloudsky_backend
+PROJECT_PATH=$(cd "$(dirname "$0")"; cd ../;pwd)
 PYTHON_PATH=python3
 DESC=cloudsky_backend_django_server
 NAME=cloudsky_backend_django_server
@@ -31,7 +31,7 @@ case "$1" in
             echo -n "Starting $DESC: "
         if [ -e $PIDFILE ]
         then
-           echo "The program has been started! Please check it!"
+           echo "Django Server has been started! Please check it!"
         else
             server_start
             sleep 5
@@ -39,7 +39,7 @@ case "$1" in
             then
                         echo "Ok"
             else
-            echo "Failed"
+            echo "Start Failed"
             fi
         fi
                 ;;
@@ -47,7 +47,7 @@ case "$1" in
                 echo -n "Stopping $DESC: "
         if [ ! -e $PIDFILE ]
                 then
-                   echo "The program doesn't start!"
+                   echo "The Server doesn't start!"
                 else
                     server_stop
             sleep 5
