@@ -5,19 +5,20 @@ from rest_framework.response import Response
 
 from cloudsky_backend.utils.pagination import StandardResultsSetPagination
 from log import serializers
-from log.models import Log
+from log.models import ApiLog
 
 
 class LogView(ListAPIView):
     # permission_classes = [IsAuthenticated, ]
     pagination_class = StandardResultsSetPagination
     serializer_class = serializers.LogSerializer
-    queryset = Log.objects.order_by("-create_time").all()
+    queryset = ApiLog.objects.order_by("-create_time").all()
 
     def list(self, request, *args, **kwargs):
         keyword = request.query_params.get("keyword", "")
         if keyword:
-            queryset = Log.objects.filter(api_name__contains=keyword).order_by('id')
+            queryset = ApiLog.objects.filter(
+                api_name__contains=keyword).order_by('id')
         else:
             queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)

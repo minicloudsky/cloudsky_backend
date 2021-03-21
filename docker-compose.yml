@@ -1,19 +1,38 @@
 version: '3'
 services:
 
-    django-web:
+    web:
       build: .
       ports:
-        - "5050:5050"
+        - "8000:8000"
+      depends_on:
+        - redis
+        - mysql
+      command:
+        - /bin/sh
+        - -c
+        - |
+          chmod 777 /code/entrypoint.sh 
+          /bin/sh /code/entrypoint.sh
+      healthcheck:
+        test: "/bin/netstat -anp | grep 3306"
+        interval: 5s
+        timeout: 3s
+        retries: 3
     redis:
       image: "redis:alpine"
+      ports:
+        - "6379:6379"
     mysql:
       image: "mysql"
       ports:
         - "3306:3306"
       environment:
+        MYSQL_DATABASE: cloudsky_backend
         MYSQL_ROOT_PASSWORD: root
-      volumes:
-        - mysql_data:/var/lib/mysql
-volumes:
-  mysql_data:
+        #volumes:
+        #- mysql_data:/var/lib/mysql
+      security_opt:
+          - seccomp:unconfined
+            #volumes:
+            #mysql_data:

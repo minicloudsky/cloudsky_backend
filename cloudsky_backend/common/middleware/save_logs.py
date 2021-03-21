@@ -5,7 +5,7 @@ import functools
 from json import JSONDecodeError
 from django.urls import resolve
 
-from log.models import Log
+from log.models import ApiLog
 
 
 def SaveLogMiddleware(func):
@@ -49,10 +49,10 @@ def SaveLogMiddleware(func):
             status_content = res.status_text
         except:
             pass
-        Log.objects.create(api_name=api_path,
+        ApiLog.objects.create(api_name=api_path,
                            method=req_method,
-                           params=",".join(params_list),
-                           comments=comments,
+                           param=",".join(params_list),
+                           comment=comments,
                            time=keep_time,
                            ip=ip_addr,
                            username=request.user,

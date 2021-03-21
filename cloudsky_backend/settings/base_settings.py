@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import datetime
 import os
 import sys
-import django_opentracing
 from pathlib import Path
 
 # load the cloudsky_backend_settings configs
@@ -50,11 +49,9 @@ INSTALLED_APPS = [
     # install app 'log'
     'log.apps.LogConfig',
     'business.apps.BusinessConfig',
-    'django_prometheus',
 ]
 
 MIDDLEWARE = [
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cloudsky_backend.common.middleware.save_logs.SaveLogMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
-    'django_opentracing.OpenTracingMiddleware',
 
 ]
 
@@ -141,6 +136,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/static/'
 # 设置上传文件的路径
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 指定根目录
@@ -264,40 +260,7 @@ SWAGGER_SETTINGS = {
 }
 
 
-
-# OpenTracing settings
-
-# if not included, defaults to True.
-# has to come before OPENTRACING_TRACING setting because python...
-OPENTRACING_TRACE_ALL = True
-
-# defaults to []
-# only valid if OPENTRACING_TRACE_ALL == True
-OPENTRACING_TRACED_ATTRIBUTES = []
-
-# Callable that returns an `opentracing.Tracer` implementation.
-OPENTRACING_TRACER_CALLABLE = 'opentracing.Tracer'
-
-# Parameters for the callable (Depending on the tracer implementation chosen)
-OPENTRACING_TRACER_PARAMETERS = {
-    # 'example-parameter-host': 'collector',
-}
-
-# OpenTracing settings
-
-# default tracer is opentracing.Tracer(), which does nothing
-OPENTRACING_TRACING = django_opentracing.DjangoTracing()
-
-# default is False
-OPENTRACING_TRACE_ALL = False
-
-# default is []
-OPENTRACING_TRACED_ATTRIBUTES = ['META']
-
 _LOCAL_SETTINGS_PATH = os.path.join(
     os.path.dirname(__file__), 'cloudsky_backend_settings.py')
 if os.path.exists(_LOCAL_SETTINGS_PATH):
     exec(open(_LOCAL_SETTINGS_PATH, 'rb').read())
-
-PROMETHEUS_LATENCY_BUCKETS = (
-    .1, .2, .5, .6, .8, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
