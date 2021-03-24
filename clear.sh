@@ -1,4 +1,4 @@
 #!/bin/bash
-docker ps -a | grep cloud | awk '{print $1}' | xargs docker stop
-docker ps -a | grep cloud | awk '{print $1}' | xargs docker rm
-docker images | grep cloud | awk '{print $1}' | xargs docker rmi
+docker ps -a | grep cloudsky | awk '{print $1}' | xargs docker stop
+docker ps -a | grep cloudsky | awk '{print $1}' | xargs docker rm
+docker images | grep cloudsky | awk '{print $1}' | xargs docker rmi
