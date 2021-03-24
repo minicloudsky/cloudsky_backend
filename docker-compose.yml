@@ -8,17 +8,13 @@ services:
       depends_on:
         - redis
         - mysql
+      restart: on-failure
       command:
         - /bin/sh
         - -c
         - |
           chmod 777 /code/entrypoint.sh 
           /bin/sh /code/entrypoint.sh
-      healthcheck:
-        test: "/bin/netstat -anp | grep 3306"
-        interval: 5s
-        timeout: 3s
-        retries: 3
     redis:
       image: "redis:alpine"
       ports:
