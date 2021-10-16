@@ -11,6 +11,8 @@ from rest_framework.views import APIView
 from cloudsky_backend.common.db import fetchall_to_dict
 
 # cache = get_redis_connection("default")
+from cloudsky_backend.common.user_permissions import permission_required
+
 logger = logging.getLogger("cloudsky_backend_project")
 
 
@@ -18,6 +20,7 @@ logger = logging.getLogger("cloudsky_backend_project")
 class GetDataView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
+    @permission_required('admin')
     def get(self, request, *args, **kwargs):
         keyword = request.query_params.get('keyword') or ''
         page = request.query_params.get('page') or 1
