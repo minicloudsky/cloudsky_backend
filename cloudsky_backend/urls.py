@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from . import views
 from django.urls import path, include
 
 
-def trigger_error(request):
-    division_by_zero = 0.7
+#def trigger_error(request):
+#    division_by_zero = 0.7
 
 
 urlpatterns = [
@@ -27,8 +26,4 @@ urlpatterns = [
     path('user/', include("user.urls")),
     path('log/', include('log.urls')),
     path('business/', include('business.urls')),
-    path('sentry-debug/', trigger_error),
-    path('', include('django_prometheus.urls')),
-    path('server/', include('server.urls')),
-    path('client/', include('client.urls')),
 ]

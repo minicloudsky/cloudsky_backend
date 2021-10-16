@@ -10,16 +10,16 @@ def _compute_key(function, args, kw):
     return hashlib.md5(pickle.dumps((function.__name__, args, kw))).hexdigest()
 
 
-def function_caches(times=600):
-    def _memoize(function):
-        @functools.wraps(function)  # auto copy func
-        def __memoize(*args, **kw):
-            force_updata = kw.pop("redis_key", False)
-            key = _compute_key(function, args, kw)
+def cached(timeout=600):
+    def decorator(func):
+        @functools.wraps(func)  # copy func metadata
+        def wrapper(*args, **kwargs):
+            force_updata = kwargs.pop("redis_key", False)
+            key = _compute_key(func, args, kw)
             if force_updata:
-                # execute
-                result = function(*args, **kw)
-                # save result
+                # execute func
+                result = func(*args, **kwargs)
+                # save func execute result
                 cache.set(key, pickle.dumps(result), times)
             else:
                 result = cache.get(key)
@@ -27,9 +27,9 @@ def function_caches(times=600):
                     result = pickle.loads(result)
                 else:
                     result = function(*args, **kw)
-                    cache.set(key, pickle.dumps(result), times)
+                    cache.set(key, pickle.dumps(result), timeout)
             return result
 
-        return __memoize
+        return wrapper
 
-    return _memoize
+    return decorator
