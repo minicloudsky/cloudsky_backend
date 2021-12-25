@@ -42,8 +42,9 @@ If you get the response like above,then your demo project is deployed success,en
 
 ### Usage
 `git clone https://github.com/minicloudsky/cloudsky_backend.git`
-### write your business code,such as create your own apps,middlewares,then write tour django views,urls,models etc ...
-### Run `sh build.sh` to build a docker image.
-### Run `sh run.sh` to deploy your project, default `service port` is `8000`, you can edit the `Dockerfile` to customize your need.
+1. write your business code,such as create your own apps,middlewares,then write tour django views,urls,models etc ...
+2. Run `sh build.sh` to build a docker image.
+3. Run `sh run.sh` to deploy your project, default `service port` is `8000`, you can edit the `Dockerfile` to customize your need.
+### enjoy cloudsky-backend ~
 
 
