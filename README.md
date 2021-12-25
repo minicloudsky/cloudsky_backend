@@ -1,8 +1,13 @@
 # cloudsky_backend
 ## An easy to use and user-friendly microservice framework based on Django,deploy with gunicorn and docker.
 ### quickstart
-`docker pull minicloudsky/cloudsky-backend`
-`docker run --name cloudsky-backend  -it -d -p 8000:8000  cloudsky-backend`
+```shell
+docker pull minicloudsky/cloudsky-backend
+```
+```shell
+docker run --name cloudsky-backend  -it -d -p 8000:8000  cloudsky-backend
+```
+
 ### Api Test
 #### Try to use postman or curl, send a request to  `http://your_host:8000/log/get_log/` ,then you will get the response as the following.
 ```json
