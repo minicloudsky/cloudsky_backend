@@ -9,7 +9,8 @@ docker run --name cloudsky-backend  -it -d -p 8000:8000  cloudsky-backend
 ```
 
 ### Api Test
-#### Try to use postman or curl, send a request to  `http://your_host:8000/log/get_log/` ,then you will get the response as the following.
+#### Try to use postman or curl, send a `GET` request to  `http://your_host:8000/log/get_log/` ,then you will get the response as the following.
+such as `curl http://localhost:8000/log/get_log/`
 ```json
 {
   "code": 200,
