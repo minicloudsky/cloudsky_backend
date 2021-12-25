@@ -3,7 +3,7 @@ from django.db.models import Q
 from rest_framework import status
 from rest_framework.response import Response
 
-from cloudsky_backend.common.cache import function_caches
+from cloudsky_backend.common.cache import cached
 
 
 def permission_required(*p):
@@ -19,7 +19,7 @@ def permission_required(*p):
     return _inner
 
 
-@function_caches()
+@cached()
 def get_user_permissions(user_id):
     if user_id > 10:
         return 'admin'
