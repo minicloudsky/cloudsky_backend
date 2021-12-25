@@ -1,0 +1,10 @@
+bind = '0.0.0.0:8000'
+workers = 5
+backlog = 1024
+worker_class = 'gevent'
+#daemon = True
+proc_name = 'cloudsky_backend'
+pidfile = './cloudsky_backend.pid'
+accesslog = '.all.log'
+errorlog = '.error.log'
+timeout = 600
