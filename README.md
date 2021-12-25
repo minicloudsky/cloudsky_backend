@@ -3,6 +3,7 @@
 ### quickstart
 `docker pull minicloudsky/cloudsky-backend`
 `docker run --name cloudsky-backend  -it -d -p 8000:8000  cloudsky-backend`
+### Api Test
 #### Try to use postman or curl, send a request to  `http://your_host:8000/log/get_log/` ,then you will get the response as the following.
 ```json
 {
@@ -16,7 +17,7 @@
     "next": null,
     "content": [
       {
-        "id": 7,
+        "id": 1,
         "api_name": "/log/get_log/",
         "method": "GET",
         "param": "",
@@ -27,84 +28,6 @@
         "username": "AnonymousUser",
         "status_code": "200",
         "status_text": "OK"
-      },
-      {
-        "id": 6,
-        "api_name": "/log/get_log/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取日志接口",
-        "time": 306,
-        "ip": "91.243.81.185",
-        "create_time": "2021-12-25T18:27:22.633556+08:00",
-        "username": "AnonymousUser",
-        "status_code": "200",
-        "status_text": "OK"
-      },
-      {
-        "id": 5,
-        "api_name": "/log/get_log/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取日志接口",
-        "time": 54,
-        "ip": "91.243.81.185",
-        "create_time": "2021-12-25T18:22:51.254743+08:00",
-        "username": "AnonymousUser",
-        "status_code": "200",
-        "status_text": "OK"
-      },
-      {
-        "id": 4,
-        "api_name": "/log/get_log/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取日志接口",
-        "time": 271,
-        "ip": "91.243.81.185",
-        "create_time": "2021-12-25T18:22:44.810485+08:00",
-        "username": "AnonymousUser",
-        "status_code": "200",
-        "status_text": "OK"
-      },
-      {
-        "id": 3,
-        "api_name": "/log/get_log/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取日志接口",
-        "time": 73,
-        "ip": "91.243.81.185",
-        "create_time": "2021-12-25T18:20:52.703190+08:00",
-        "username": "AnonymousUser",
-        "status_code": "200",
-        "status_text": "OK"
-      },
-      {
-        "id": 2,
-        "api_name": "/log/get_log/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取日志接口",
-        "time": 367,
-        "ip": "91.243.81.185",
-        "create_time": "2021-12-25T18:20:45.826493+08:00",
-        "username": "AnonymousUser",
-        "status_code": "200",
-        "status_text": "OK"
-      },
-      {
-        "id": 1,
-        "api_name": "/user/get/",
-        "method": "GET",
-        "param": "",
-        "comment": "获取所有用户信息",
-        "time": 124,
-        "ip": "210.13.101.50",
-        "create_time": "2021-03-23T18:23:54.896416+08:00",
-        "username": "AnonymousUser",
-        "status_code": "401",
-        "status_text": "Unauthorized"
       }
     ]
   }
