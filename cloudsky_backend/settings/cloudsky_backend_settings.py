@@ -7,7 +7,7 @@ DATABASES = {
     # },
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'aliyun.yawujia.cn',
+        'HOST': 'host',
         'PORT': 3306,
         'USER': 'root',
         'PASSWORD': 'root',
